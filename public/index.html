@@ -19,11 +19,111 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>React App</title>
+    <title>Online Markdown Editor</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        font-family: "SourceSansPro";
+      }
+
+      body {
+        background: #9d50bb; /* fallback for old browsers */
+        background: -webkit-linear-gradient(to right, #6e48aa, #9d50bb); /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(
+          to right,
+          #6e48aa,
+          #9d50bb
+        ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+      }
+
+      img#logo {
+        width: 50px;
+        position: absolute;
+        left: 10px;
+        bottom: 10px;
+      }
+
+      ul,
+      ol {
+        margin-top: 0;
+        margin-bottom: 16px;
+        margin-left: 2em;
+      }
+
+      @font-face {
+        font-family: SourceSansPro;
+        src: url("/fonts/SourceSansPro-Black.ttf");
+        font-weight: 900;
+      }
+      @font-face {
+        font-family: SourceSansPro;
+        src: url("/fonts/SourceSansPro-BlackItalic.ttf");
+        font-weight: 900;
+        font-style: italic;
+      }
+      @font-face {
+        font-family: SourceSansPro;
+        src: url("/fonts/SourceSansPro-Bold.ttf");
+        font-weight: 700;
+      }
+      @font-face {
+        font-family: SourceSansPro;
+        src: url("/fonts/SourceSansPro-BoldItalic.ttf");
+        font-weight: 700;
+        font-style: italic;
+      }
+      @font-face {
+        font-family: SourceSansPro;
+        src: url("/fonts/SourceSansPro-ExtraLight.ttf");
+        font-weight: 200;
+      }
+      @font-face {
+        font-family: SourceSansPro;
+        src: url("/fonts/SourceSansPro-ExtraLightItalic.ttf");
+        font-weight: 200;
+        font-style: italic;
+      }
+      @font-face {
+        font-family: SourceSansPro;
+        src: url("/fonts/SourceSansPro-Italic.ttf");
+        font-weight: 400;
+        font-style: italic;
+      }
+      @font-face {
+        font-family: SourceSansPro;
+        src: url("/fonts/SourceSansPro-Light.ttf");
+        font-weight: 300;
+      }
+      @font-face {
+        font-family: SourceSansPro;
+        src: url("/fonts/SourceSansPro-LightItalic.ttf");
+        font-weight: 300;
+        font-style: italic;
+      }
+      @font-face {
+        font-family: SourceSansPro;
+        src: url("/fonts/SourceSansPro-Regular.ttf");
+        font-weight: 400;
+      }
+      @font-face {
+        font-family: SourceSansPro;
+        src: url("/fonts/SourceSansPro-SemiBold.ttf");
+        font-weight: 600;
+        font-weight: bold;
+      }
+      @font-face {
+        font-family: SourceSansPro;
+        src: url("/fonts/SourceSansPro-SemiBoldItalic.ttf");
+        font-weight: 600;
+        font-style: italic;
+      }
+    </style>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+    <img id="logo" src="/logo512.png" />
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
