@@ -45,6 +45,7 @@
     "object-shorthand": "warn",
     "class-methods-use-this": "off",
     "no-restricted-syntax": "off",
+    "react/display-name": "off",
     "react/jsx-filename-extension": [
       1,
       {
