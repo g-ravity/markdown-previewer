@@ -3,7 +3,7 @@ import { css, jsx } from "@emotion/core";
 import anime from "animejs";
 import { EditorState, RichUtils } from "draft-js";
 import { css as eCss } from "emotion";
-import { useState } from "react";
+import { FocusEvent, MouseEvent, useState } from "react";
 import { Layers, Moon, Sun, XCircle } from "react-feather";
 import { ThemeProvider, useThemeSetState, useThemeState } from "../context/ThemeContext";
 import { darkPalette, lightPalette } from "../theme/theme";
@@ -43,6 +43,20 @@ const App = () => {
       targets: `.${filter}`,
       right: type === "in" ? "0%" : "-100%",
       easing: "spring(1, 50, 10, 10)"
+    });
+  };
+
+  const zoomAnime = (type: "in" | "out", elem: HTMLElement[]) => {
+    anime({
+      targets: elem[0],
+      fontSize: type === "in" ? "2.5em" : "1.5em",
+      easing: "spring(1, 80, 10, 0)"
+    });
+
+    anime({
+      targets: elem[1],
+      scale: type === "in" ? 1.5 : 1,
+      easing: "spring(1, 80, 10, 0)"
     });
   };
 
@@ -115,6 +129,18 @@ const App = () => {
                   color: theme.text
                 }
               ]}
+              onMouseOver={(e: MouseEvent) =>
+                zoomAnime("in", [e.target as HTMLElement, (e.target as HTMLElement).firstChild as HTMLElement])
+              }
+              onMouseOut={(e: MouseEvent) =>
+                zoomAnime("out", [e.target as HTMLElement, (e.target as HTMLElement).firstChild as HTMLElement])
+              }
+              onFocus={(e: FocusEvent<HTMLButtonElement>) =>
+                zoomAnime("in", [e.target as HTMLElement, (e.target as HTMLElement).firstChild as HTMLElement])
+              }
+              onBlur={(e: FocusEvent<HTMLButtonElement>) =>
+                zoomAnime("out", [e.target as HTMLElement, (e.target as HTMLElement).firstChild as HTMLElement])
+              }
               onClick={() => {
                 setTheme({ mode, palette: elem });
                 slideAnime("out");
@@ -146,6 +172,7 @@ const styles = {
     width: "100%",
     height: "100%",
     position: "relative",
+    overflow: "hidden",
 
     button: {
       background: "none",
@@ -254,7 +281,11 @@ const styles = {
     flexDirection: "column",
     justifyContent: "space-between",
     width: "90%",
+    height: "100vh",
     margin: "0 auto",
+    padding: "20px 0",
+    boxSizing: "border-box",
+    overflow: "hidden",
 
     "@media only screen and (min-width: 1024px)": {
       flexDirection: "row"

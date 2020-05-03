@@ -23,7 +23,12 @@ const Box = (props: BoxProps) => {
 
   return (
     <div css={[styles.box, { backgroundColor: theme.background, boxShadow: `15px 15px 0 ${theme.fadedBackground}` }]}>
-      <div css={styles.btnContainer} style={{ justifyContent: text === "MARKDOWN" ? "flex-end" : "" }}>
+      <div
+        css={[
+          styles.btnContainer,
+          { justifyContent: text === "MARKDOWN" ? "flex-end" : "", borderBottom: `2px solid ${theme.text}` }
+        ]}
+      >
         {children[0]}
       </div>
       {children.slice(1, children.length)}
@@ -41,13 +46,17 @@ const styles = {
     fontSize: "1.2em",
     flexBasis: "100%",
     height: "90vh",
-    margin: "50px"
+    margin: "0 50px",
+    display: "flex",
+    flexDirection: "column"
   }),
 
   btnContainer: css({
-    borderBottom: "2px solid #e3e3e3",
     display: "flex",
-    height: "40px"
+    alignItems: "center",
+    padding: "10px 20px",
+    fontSize: "0.8em",
+    userSelect: "none"
   }),
 
   sidebar: css({

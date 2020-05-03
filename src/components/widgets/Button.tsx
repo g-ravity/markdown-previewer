@@ -1,6 +1,8 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
 import { useState } from "react";
+import { useThemeState } from "../../context/ThemeContext";
+import { getTheme } from "../../utils";
 
 /**
  * Types
@@ -17,10 +19,13 @@ export interface ButtonProps {
 export const Button = (props: ButtonProps) => {
   const { label, activeLabel, onClick } = props;
   const [active, setActive] = useState(false);
+  const { mode, palette } = useThemeState();
+
+  const theme = getTheme(mode);
 
   return (
     <span
-      css={[styles.button, { color: active ? "#5890ff" : "#999" }]}
+      css={[styles.button, { color: active ? palette.primary : theme.text, fontSize: active ? "1.2em" : "" }]}
       onClick={() => {
         setActive(!active);
         onClick();

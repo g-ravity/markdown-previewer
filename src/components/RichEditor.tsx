@@ -3,6 +3,8 @@ import { css, jsx } from "@emotion/core";
 import { ContentBlock, DraftStyleMap, Editor, EditorState } from "draft-js";
 import { css as eCss } from "emotion";
 import { createRef, Dispatch, SetStateAction } from "react";
+import { useThemeState } from "../context/ThemeContext";
+import { getTheme } from "../utils";
 
 /**
  * Types
@@ -59,13 +61,16 @@ function getBlockStyle(block: ContentBlock): string {
 const RichEditor = (props: EditorProps) => {
   const { editorState, setEditorState } = props;
   const editorRef = createRef<Editor>();
+  const { mode } = useThemeState();
+
+  const theme = getTheme(mode);
 
   const focus = () => editorRef.current?.focus();
   const onChange = (state: EditorState) => setEditorState(state);
 
   return (
-    <div css={styles.container}>
-      <div css={styles.editor} onClick={focus}>
+    <div css={styles.container} onClick={focus}>
+      <div css={[styles.editor, { caretColor: theme.text, color: theme.text }]} onClick={focus}>
         <Editor
           blockStyleFn={getBlockStyle}
           customStyleMap={styleMap}
@@ -84,14 +89,15 @@ const RichEditor = (props: EditorProps) => {
  */
 const styles = {
   container: css({
-    fontSize: "14px",
-    padding: "15px"
+    padding: "20px",
+    boxSizing: "border-box",
+    width: "100%",
+    height: "100%"
   }),
 
   editor: css({
-    borderTop: "1px solid #ddd",
     cursor: "text",
-    fontSize: "16px",
+    fontSize: "1em",
     marginTop: "10px"
   })
 };
