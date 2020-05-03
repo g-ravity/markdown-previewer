@@ -1,12 +1,14 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
 import { ReactNode } from "react";
+import { useThemeState } from "../context/ThemeContext";
+import { getTheme } from "../utils";
 
 /**
  * Types
  */
 export interface BoxProps {
-  text: "EDITOR" | "MARKDOWN";
+  text: "RICH TEXT" | "MARKDOWN";
   children: ReactNode[];
 }
 
@@ -15,14 +17,17 @@ export interface BoxProps {
  */
 const Box = (props: BoxProps) => {
   const { text, children } = props;
+  const { mode } = useThemeState();
+
+  const theme = getTheme(mode);
 
   return (
-    <div css={styles.box}>
+    <div css={[styles.box, { backgroundColor: theme.background, boxShadow: `15px 15px 0 ${theme.fadedBackground}` }]}>
       <div css={styles.btnContainer} style={{ justifyContent: text === "MARKDOWN" ? "flex-end" : "" }}>
         {children[0]}
       </div>
       {children.slice(1, children.length)}
-      <p css={styles.sidebar}>{text}</p>
+      <p css={[styles.sidebar, { color: theme.text }]}>{text}</p>
     </div>
   );
 };
@@ -33,12 +38,10 @@ const Box = (props: BoxProps) => {
 const styles = {
   box: css({
     position: "relative",
-    fontSize: "1.2rem",
+    fontSize: "1.2em",
     flexBasis: "100%",
     height: "90vh",
-    margin: "50px",
-    background: "white",
-    boxShadow: "10px 10px 0px rgba(81, 0, 128, 1)"
+    margin: "50px"
   }),
 
   btnContainer: css({
@@ -49,11 +52,11 @@ const styles = {
 
   sidebar: css({
     position: "absolute",
-    bottom: "70px",
-    left: "-100px",
-    transform: "rotateZ(-90deg)",
-    color: "white",
-    fontSize: "1.5rem"
+    bottom: "0px",
+    left: "-50px",
+    transform: "rotateZ(180deg)",
+    writingMode: "vertical-lr",
+    fontSize: "1.5em"
   })
 };
 
