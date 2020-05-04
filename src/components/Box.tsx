@@ -31,7 +31,9 @@ const Box = (props: BoxProps) => {
       >
         {children[0]}
       </div>
+
       {children.slice(1, children.length)}
+
       <p css={[styles.sidebar, { color: theme.text }]}>{text}</p>
     </div>
   );
@@ -44,8 +46,7 @@ const styles = {
   box: css({
     position: "relative",
     fontSize: "1.2em",
-    flexBasis: "100%",
-    height: "90vh",
+    width: "100%",
     margin: "0 50px",
     display: "flex",
     flexDirection: "column"

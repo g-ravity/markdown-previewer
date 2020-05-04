@@ -1,18 +1,9 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
 import { ContentBlock, DraftStyleMap, Editor, EditorState } from "draft-js";
-import { css as eCss } from "emotion";
-import { createRef, Dispatch, SetStateAction } from "react";
+import { createRef, Dispatch, SetStateAction, useEffect } from "react";
 import { useThemeState } from "../context/ThemeContext";
-import { getTheme } from "../utils";
-
-/**
- * Types
- */
-export interface EditorProps {
-  editorState: EditorState;
-  setEditorState: Dispatch<SetStateAction<EditorState>>;
-}
+import { blockquoteStyle, codeStyle, getTheme, h1Style, h2Style, h3Style, h4Style, h5Style, h6Style } from "../utils";
 
 // TODO: Add overriding inline styles
 const styleMap: DraftStyleMap = {
@@ -56,6 +47,14 @@ function getBlockStyle(block: ContentBlock): string {
 }
 
 /**
+ * Types
+ */
+export interface EditorProps {
+  editorState: EditorState;
+  setEditorState: Dispatch<SetStateAction<EditorState>>;
+}
+
+/**
  * Component
  */
 const RichEditor = (props: EditorProps) => {
@@ -67,6 +66,8 @@ const RichEditor = (props: EditorProps) => {
 
   const focus = () => editorRef.current?.focus();
   const onChange = (state: EditorState) => setEditorState(state);
+
+  useEffect(focus, []);
 
   return (
     <div css={styles.container} onClick={focus}>
@@ -97,85 +98,8 @@ const styles = {
 
   editor: css({
     cursor: "text",
-    fontSize: "1em",
-    marginTop: "10px"
+    fontSize: "1em"
   })
 };
-
-// TODO: Separate the rich text styles into a separate file
-const h1Style = eCss`
-  margin-top: 24px;
-  margin-bottom: 16px;
-  font-weight: 600;
-  line-height: 1.25;
-  padding-bottom: .3em;
-  border-bottom: 1px solid #eaecef;
-  font-size: 2em;
-`;
-
-const h2Style = eCss`
-  margin-top: 24px;
-  margin-bottom: 16px;
-  font-weight: 600;
-  line-height: 1.25;
-  padding-bottom: .3em;
-  border-bottom: 1px solid #eaecef;
-  font-size: 1.5em;
-`;
-
-const h3Style = eCss`
-  margin-top: 24px;
-  margin-bottom: 16px;
-  font-weight: 600;
-  line-height: 1.25;
-  font-size: 1.25em;
-`;
-
-const h4Style = eCss`
-  margin-top: 24px;
-  margin-bottom: 16px;
-  font-weight: 600;
-  line-height: 1.25;
-  font-size: 1em;
-`;
-
-const h5Style = eCss`
-  margin-top: 24px;
-  margin-bottom: 16px;
-  font-weight: 600;
-  line-height: 1.25;
-  font-size: .875em;
-`;
-
-const h6Style = eCss`
-  margin-top: 24px;
-  margin-bottom: 16px;
-  font-weight: 600;
-  line-height: 1.25;
-  font-size: .85em;
-  color: #6a737d;
-`;
-
-const blockquoteStyle = eCss`
-  border-left: .25em solid #dfe2e5;
-  color: #6a737d;
-  padding: 0 1em;
-  margin-top: 0;
-  margin-bottom: 16px
-`;
-
-const codeStyle = eCss`
-  padding: 16px;
-  overflow: auto;
-  font-size: .85em;
-  line-height: 1.45;
-  background-color: #f6f8fa;
-  border-radius: 3px;
-  word-wrap: normal;
-
-  div{
-    font-size: 1.18em;
-  }
-`;
 
 export default RichEditor;

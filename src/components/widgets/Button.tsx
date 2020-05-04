@@ -42,7 +42,7 @@ export const Button = (props: ButtonProps) => {
 const styles = {
   button: css({
     cursor: "pointer",
-    marginRight: "16px",
+    marginLeft: "16px",
     padding: "2px 0",
     display: "inline-block"
   })

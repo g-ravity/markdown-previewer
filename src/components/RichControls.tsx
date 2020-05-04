@@ -1,6 +1,5 @@
-/** @jsx jsx */
-import { css, jsx } from "@emotion/core";
 import { EditorState } from "draft-js";
+import React from "react";
 import { StyleButton } from "./widgets/StyleButton";
 
 const BLOCK_TYPES = [
@@ -40,7 +39,7 @@ export const BlockControls = (props: RichControlProps) => {
   const blockType = editorState.getCurrentContent().getBlockForKey(selection.getStartKey()).getType();
 
   return (
-    <div css={[styles.buttonContainer, { marginBottom: "5px" }]}>
+    <>
       {BLOCK_TYPES.map(type => (
         <StyleButton
           key={type.label}
@@ -50,7 +49,7 @@ export const BlockControls = (props: RichControlProps) => {
           style={type.style}
         />
       ))}
-    </div>
+    </>
   );
 };
 
@@ -59,7 +58,7 @@ export const InlineControls = (props: RichControlProps) => {
   const currentStyle = editorState.getCurrentInlineStyle();
 
   return (
-    <div css={styles.buttonContainer}>
+    <>
       {INLINE_STYLES.map(type => (
         <StyleButton
           key={type.label}
@@ -69,16 +68,6 @@ export const InlineControls = (props: RichControlProps) => {
           style={type.style}
         />
       ))}
-    </div>
+    </>
   );
-};
-
-/**
- * Styles
- */
-const styles = {
-  buttonContainer: css({
-    display: "flex",
-    alignItems: "center"
-  })
 };

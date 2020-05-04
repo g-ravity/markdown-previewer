@@ -3,7 +3,7 @@ import { css, jsx } from "@emotion/core";
 import anime from "animejs";
 import { EditorState, RichUtils } from "draft-js";
 import { css as eCss } from "emotion";
-import { FocusEvent, MouseEvent, useState } from "react";
+import React, { FocusEvent, MouseEvent, useState } from "react";
 import { Layers, Moon, Sun, XCircle } from "react-feather";
 import { ThemeProvider, useThemeSetState, useThemeState } from "../context/ThemeContext";
 import { darkPalette, lightPalette } from "../theme/theme";
@@ -71,10 +71,11 @@ const App = () => {
     >
       <div css={styles.container}>
         <Box text="RICH TEXT">
-          <div>
+          <React.Fragment>
             <BlockControls editorState={editorState} onToggle={toggleBlockType} />
             <InlineControls editorState={editorState} onToggle={toggleInlineStyle} />
-          </div>
+          </React.Fragment>
+
           <RichEditor editorState={editorState} setEditorState={setEditorState} />
         </Box>
 
@@ -82,6 +83,18 @@ const App = () => {
           <Controls />
           <div>Hey, here is your output. Cheers!</div>
         </Box>
+      </div>
+
+      <div css={[styles.copy, { color: theme.text, backgroundColor: theme.fadedText }]}>
+        &copy; 2020 Ravik Ganguly - source code on{" "}
+        <a
+          href="https://github.com/g-ravity/markdown-previewer"
+          target="_blank"
+          rel="noopener noreferrer"
+          css={{ borderColor: theme.background, color: theme.background }}
+        >
+          github
+        </a>
       </div>
 
       <div
@@ -102,18 +115,6 @@ const App = () => {
 
         <IconButton icon={Layers} onClick={() => slideAnime("in")} color={theme.text} title="Palette" />
       </div>
-
-      <p css={[styles.copy, { color: theme.text, backgroundColor: theme.fadedText }]}>
-        &copy; 2020 Ravik Ganguly - source code on{" "}
-        <a
-          href="https://github.com/g-ravity/markdown-previewer"
-          target="_blank"
-          rel="noopener noreferrer"
-          css={{ borderColor: theme.background, color: theme.background }}
-        >
-          github
-        </a>
-      </p>
 
       <img src={`/logo512${isDark(mode) ? "" : "-light"}.png`} alt="Markdown Logo" css={styles.logo} />
 
@@ -170,9 +171,11 @@ const App = () => {
 const styles = {
   body: css({
     width: "100%",
-    height: "100%",
+    height: "100vh",
     position: "relative",
     overflow: "hidden",
+    display: "flex",
+    flexDirection: "column",
 
     button: {
       background: "none",
@@ -193,6 +196,22 @@ const styles = {
     }
   }),
 
+  container: css({
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    width: "90%",
+    margin: "0 auto",
+    padding: "30px 0",
+    height: "100%",
+    boxSizing: "border-box",
+    overflow: "hidden",
+
+    "@media only screen and (min-width: 1024px)": {
+      flexDirection: "row"
+    }
+  }),
+
   logo: css({
     width: "30px",
     position: "absolute",
@@ -208,11 +227,8 @@ const styles = {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    position: "absolute",
     height: "50px",
     bottom: 0,
-    left: "50%",
-    transform: "translateX(-50%)",
     width: "100%",
 
     a: {
@@ -274,22 +290,6 @@ const styles = {
     left: "50%",
     top: "50%",
     transform: "translate(-50%, -50%)"
-  }),
-
-  container: css({
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-between",
-    width: "90%",
-    height: "100vh",
-    margin: "0 auto",
-    padding: "20px 0",
-    boxSizing: "border-box",
-    overflow: "hidden",
-
-    "@media only screen and (min-width: 1024px)": {
-      flexDirection: "row"
-    }
   })
 };
 

@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, ButtonProps } from "./widgets";
 
+// TODO: Implement Copy & Download functionality
 const CONTROL_BUTTONS: ButtonProps[] = [
   {
     label: "Edit",
