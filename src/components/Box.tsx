@@ -25,8 +25,8 @@ const Box = (props: BoxProps) => {
     <div css={[styles.box, { backgroundColor: theme.background, boxShadow: `15px 15px 0 ${theme.fadedBackground}` }]}>
       <div
         css={[
-          styles.btnContainer,
-          { justifyContent: text === "MARKDOWN" ? "flex-end" : "", borderBottom: `2px solid ${theme.text}` }
+          { justifyContent: text === "MARKDOWN" ? "flex-end" : "flex-start", borderBottom: `2px solid ${theme.text}` },
+          styles.btnContainer
         ]}
       >
         {children[0]}
@@ -47,9 +47,16 @@ const styles = {
     position: "relative",
     fontSize: "1.2em",
     width: "100%",
-    margin: "0 50px",
+    height: "100vh",
+    margin: "30px 0",
     display: "flex",
-    flexDirection: "column"
+    flexDirection: "column",
+
+    "@media only screen and (min-width: 1024px)": {
+      width: "50%",
+      height: "auto",
+      margin: "0 50px"
+    }
   }),
 
   btnContainer: css({
@@ -57,16 +64,30 @@ const styles = {
     alignItems: "center",
     padding: "10px 20px",
     fontSize: "0.8em",
-    userSelect: "none"
+    userSelect: "none",
+    flexWrap: "wrap"
   }),
 
   sidebar: css({
     position: "absolute",
-    bottom: "0px",
-    left: "-50px",
-    transform: "rotateZ(180deg)",
-    writingMode: "vertical-lr",
-    fontSize: "1.5em"
+    top: "-30px",
+    left: "0px",
+    fontSize: "1.2em",
+    fontWeight: 700,
+
+    "@media only screen and (min-width: 768px)": {
+      fontSize: "1.5em",
+      top: "-35px"
+    },
+
+    "@media only screen and (min-width: 1024px)": {
+      bottom: "0px",
+      left: "-50px",
+      transform: "rotateZ(180deg)",
+      writingMode: "vertical-lr",
+      top: "unset",
+      fontWeight: 400
+    }
   })
 };
 

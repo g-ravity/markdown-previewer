@@ -69,6 +69,25 @@ const App = () => {
         }
       ]}
     >
+      <div
+        className={btnContainer}
+        css={[styles.btnContainer, { backgroundColor: theme.fadedText, color: theme.text }]}
+      >
+        <IconButton
+          icon={isDark(mode) ? Sun : Moon}
+          onClick={() =>
+            setTheme({
+              mode: isDark(mode) ? "light" : "dark",
+              palette: isDark(mode) ? lightPalette[0] : darkPalette[0]
+            })
+          }
+          color={theme.text}
+          title="Mode"
+        />
+
+        <IconButton icon={Layers} onClick={() => slideAnime("in")} color={theme.text} title="Palette" />
+      </div>
+
       <div css={styles.container}>
         <Box text="RICH TEXT">
           <React.Fragment>
@@ -95,25 +114,6 @@ const App = () => {
         >
           github
         </a>
-      </div>
-
-      <div
-        className={btnContainer}
-        css={[styles.btnContainer, { backgroundColor: theme.fadedText, color: theme.text }]}
-      >
-        <IconButton
-          icon={isDark(mode) ? Sun : Moon}
-          onClick={() =>
-            setTheme({
-              mode: isDark(mode) ? "light" : "dark",
-              palette: isDark(mode) ? lightPalette[0] : darkPalette[0]
-            })
-          }
-          color={theme.text}
-          title="Mode"
-        />
-
-        <IconButton icon={Layers} onClick={() => slideAnime("in")} color={theme.text} title="Palette" />
       </div>
 
       <img src={`/logo512${isDark(mode) ? "" : "-light"}.png`} alt="Markdown Logo" css={styles.logo} />
@@ -171,9 +171,8 @@ const App = () => {
 const styles = {
   body: css({
     width: "100%",
-    height: "100vh",
     position: "relative",
-    overflow: "hidden",
+    overflowX: "hidden",
     display: "flex",
     flexDirection: "column",
 
@@ -193,6 +192,11 @@ const styles = {
       ":focus": {
         outline: 0
       }
+    },
+
+    "@media only screen and (min-width: 1024px)": {
+      overflow: "hidden",
+      height: "100vh"
     }
   }),
 
@@ -203,23 +207,25 @@ const styles = {
     width: "90%",
     margin: "0 auto",
     padding: "30px 0",
-    height: "100%",
     boxSizing: "border-box",
-    overflow: "hidden",
+    overflowX: "hidden",
 
     "@media only screen and (min-width: 1024px)": {
-      flexDirection: "row"
+      flexDirection: "row",
+      overflow: "hidden",
+      height: "100%"
     }
   }),
 
   logo: css({
-    width: "30px",
     position: "absolute",
     right: 0,
     bottom: 0,
+    display: "none",
 
     "@media only screen and (min-width: 1024px)": {
-      width: "50px"
+      width: "50px",
+      display: "inline"
     }
   }),
 
@@ -239,17 +245,27 @@ const styles = {
   }),
 
   btnContainer: css({
-    position: "fixed",
-    top: "0",
-    height: "100%",
     display: "flex",
-    flexDirection: "column",
     justifyContent: "flex-start",
-    padding: "15px 0",
-    width: "50px",
+    padding: "5px 0",
+    width: "100%",
 
     button: {
-      marginBottom: "15px"
+      marginLeft: "15px"
+    },
+
+    "@media only screen and (min-width: 1024px)": {
+      width: "50px",
+      padding: "15px 0",
+      flexDirection: "column",
+      height: "100%",
+      position: "fixed",
+      top: "0",
+
+      button: {
+        marginBottom: "15px",
+        marginLeft: 0
+      }
     }
   }),
 
@@ -287,9 +303,14 @@ const styles = {
 
   cancelFilter: css({
     position: "absolute",
-    left: "50%",
-    top: "50%",
-    transform: "translate(-50%, -50%)"
+    bottom: 0,
+
+    "@media only screen and (min-width: 1024px)": {
+      left: "50%",
+      top: "50%",
+      transform: "translate(-50%, -50%)",
+      bottom: "unset"
+    }
   })
 };
 
