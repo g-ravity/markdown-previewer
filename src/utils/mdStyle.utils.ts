@@ -62,15 +62,18 @@ export const blockquoteStyle = css`
 `;
 
 export const codeStyle = css`
-  padding: 16px;
+  padding: 10px 20px;
   overflow: auto;
-  font-size: 0.85em;
   line-height: 1.45;
   background-color: #f6f8fa;
   border-radius: 3px;
   word-wrap: normal;
+  color: #000000;
+  caret-color: #000000;
+  margin-bottom: 16px;
+  margin-left: 15px;
 
-  div {
-    font-size: 1.18em;
+  span {
+    font-family: monospace;
   }
 `;
