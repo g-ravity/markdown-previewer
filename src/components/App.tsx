@@ -8,6 +8,7 @@ import { Layers, Moon, Sun, XCircle } from "react-feather";
 import { ThemeProvider, useThemeSetState, useThemeState } from "../context/ThemeContext";
 import { darkPalette, lightPalette } from "../theme/theme";
 import { getTheme, isDark } from "../utils";
+import { formatRichText } from "../utils/format.utils";
 import Box from "./Box";
 import Controls from "./Controls";
 import { BlockControls, InlineControls } from "./RichControls";
@@ -100,7 +101,9 @@ const App = () => {
 
         <Box text="MARKDOWN">
           <Controls />
-          <div>Hey, here is your output. Cheers!</div>
+          <div id="outputArea" css={{ color: theme.text, padding: "20px" }}>
+            {formatRichText(editorState).map(elem => (elem.text ? <div key={elem.key}>{elem.text}</div> : <br />))}
+          </div>
         </Box>
       </div>
 
