@@ -1,5 +1,5 @@
 {
-  "name": "markdown-previewer",
+  "name": "markit",
   "version": "0.1.0",
   "private": true,
   "description": "Rich Text to Markdown Converter & Previewer",
@@ -80,6 +80,6 @@
   },
   "license": "MIT",
   "repository": {
-    "url": "https://github.com/g-ravity/markdown-previewer"
+    "url": "https://github.com/g-ravity/markit"
   }
 }
