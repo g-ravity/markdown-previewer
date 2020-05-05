@@ -110,7 +110,7 @@ const App = () => {
       <div css={[styles.copy, { color: theme.text, backgroundColor: theme.fadedText }]}>
         &copy; 2020 Ravik Ganguly - source code on{" "}
         <a
-          href="https://github.com/g-ravity/markdown-previewer"
+          href="https://github.com/g-ravity/markit"
           target="_blank"
           rel="noopener noreferrer"
           css={{ borderColor: theme.background, color: theme.background }}
